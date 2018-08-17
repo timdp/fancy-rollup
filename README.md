@@ -79,6 +79,25 @@ An API for invoking fancy-rollup from your JavaScript code is in the works.
 | `essential` | Rollup output only. |
 | `silent` | No output. |
 
+## Rollup Versioning
+
+It's generally a good idea to lock down the version of Rollup that you want to
+use for bundling. Specifying an exact version lets you avoid API inconsistencies
+and other unexpected behavior.
+
+This is accomplished by simply installing the correct `rollup` package alongside
+fancy-rollup. In other words, put both of them in the same `package.json` file
+so that `yarn` (or `npm install`) puts them under the same `node_modules`
+directory.
+
+If fancy-rollup cannot find `rollup` under the package directory's
+`node_modules`, it will check the parent directory's, then that one's parent
+directory's, etc. This is Node's standard module resolution in action.
+
+If none of the parent directories contain a `rollup` installation either,
+fancy-rollup will fall back to using its own version. You can check which one
+that is by consulting [`package.json`](package.json).
+
 ## Author
 
 [Tim De Pauw](https://tmdpw.eu/)
