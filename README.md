@@ -8,14 +8,19 @@ Multi-process [Rollup](https://rollupjs.org/) wrapper.
 
 ## Purpose
 
-Rollup already has the ability to run multiple builds concurrently. All you need
-to do is export an array of build configurations from your configuration file.
+Rollup has the ability to create multiple bundles from a single invocation of
+the `rollup` command. All you need to do is export an array of build
+configurations from your configuration file. Great, right?
 
-However, Rollup will just run those builds in parallel within the same process,
-and therefore only leverage one CPU core. You could create a configuration file
-per build configuration yourself and invoke `rollup` multiple times, but even
-after you've set that up, you'll still have to find a way to report progress
-from each of the builds in a comprehensive way.
+Well, using this method, a single Rollup process will simply create all the
+configured bundles in sequence. Unfortunately, that can get pretty slow.
+Computers are great at parallelization, so what you probably want to do instead
+is run your builds concurrently.
+
+To accomplish that, you _could_ create a configuration file per build and invoke
+`rollup` once for each of those files. Once you've figured out how to coordinate
+all that, you'd probably turn your attention to reporting progress from each of
+the builds in a comprehensive way.
 
 What fancy-rollup does is handle all this for you. Firstly, it will start
 multiple Node processes that each run Rollup, using all of your machine's
