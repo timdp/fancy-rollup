@@ -35,7 +35,7 @@
     "p-defer": "^1.0.0",
     "pretty-ms": "^3.2.0",
     "require-dir": "^1.0.0",
-    "rollup": "^0.63.5",
+    "rollup": "^0.64.1",
     "serialize-error": "^2.1.0",
     "split-lines": "^2.0.0",
     "stats-lite": "^2.1.1",
