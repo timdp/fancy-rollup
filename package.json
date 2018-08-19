@@ -20,8 +20,8 @@
     "cli.js"
   ],
   "scripts": {
-    "lint": "yarn run standard '*.js'",
-    "format": "yarn run prettier-standard '*.js'",
+    "lint": "yarn run standard '*.js' 'lib/**/*.js'",
+    "format": "yarn run prettier-standard '*.js' 'lib/**/*.js'",
     "precommit": "yarn run lint-staged"
   },
   "dependencies": {
