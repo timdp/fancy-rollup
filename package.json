@@ -1,6 +1,6 @@
 {
   "name": "fancy-rollup",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Multi-process Rollup wrapper.",
   "repository": "timdp/fancy-rollup",
   "author": {
