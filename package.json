@@ -13,15 +13,17 @@
     "yarn": ">=1.6.0"
   },
   "bin": {
-    "fancy-rollup": "cli.js"
+    "fancy-rollup": "dist/fancy-rollup.js"
   },
   "files": [
-    "lib/",
-    "cli.js"
+    "dist/"
   ],
   "scripts": {
-    "lint": "yarn run standard '*.js' 'lib/**/*.js'",
-    "format": "yarn run prettier-standard '*.js' 'lib/**/*.js'",
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf dist",
+    "build": "rollup -i src/cli.js -o dist/fancy-rollup.js -f cjs",
+    "lint": "yarn run standard '*.js' 'src/**/*.js'",
+    "format": "yarn run prettier-standard '*.js' 'src/**/*.js'",
     "precommit": "yarn run lint-staged"
   },
   "dependencies": {
@@ -36,7 +38,6 @@
     "p-defer": "^1.0.0",
     "pretty-bytes": "^5.1.0",
     "pretty-ms": "^3.2.0",
-    "require-dir": "^1.0.0",
     "require-relative": "^0.8.7",
     "rollup": "^0.64.1",
     "serialize-error": "^2.1.0",
@@ -49,6 +50,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "prettier-standard": "^8.0.1",
+    "rimraf": "^2.6.2",
     "standard": "^10.0.0"
   },
   "lint-staged": {
