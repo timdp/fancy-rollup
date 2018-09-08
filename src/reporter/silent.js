@@ -1,3 +1,5 @@
-const setUpReporter = () => {}
+export default {
+  isSupported: () => true,
 
-export default setUpReporter
+  install: () => {}
+}

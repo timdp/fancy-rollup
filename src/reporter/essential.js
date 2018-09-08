@@ -11,13 +11,15 @@ const proxyChannel = type => {
   }
 }
 
-const setUpReporter = master => {
-  master
-    .on(E.stdout, proxyChannel('info'))
-    .on(E.stderr, proxyChannel('warn'))
-    .on(E.fail, ({ error }) => {
-      console.error(stringifyError(error))
-    })
-}
+export default {
+  isSupported: () => true,
 
-export default setUpReporter
+  install: master => {
+    master
+      .on(E.stdout, proxyChannel('info'))
+      .on(E.stderr, proxyChannel('warn'))
+      .on(E.fail, ({ error }) => {
+        console.error(stringifyError(error))
+      })
+  }
+}

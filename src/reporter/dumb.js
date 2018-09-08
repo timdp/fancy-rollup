@@ -1,9 +1,11 @@
 import createLoggingReporter from '../util/create-logging-reporter'
 
-const setUpReporter = master => {
-  createLoggingReporter(master, ({ level, formatted }) => {
-    console[level](formatted)
-  })
-}
+export default {
+  isSupported: () => true,
 
-export default setUpReporter
+  install: master => {
+    createLoggingReporter(master, ({ level, formatted }) => {
+      console[level](formatted)
+    })
+  }
+}

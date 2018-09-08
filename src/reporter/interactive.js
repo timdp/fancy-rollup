@@ -122,28 +122,30 @@ const createUI = () => {
   }
 }
 
-const setUpReporter = master => {
-  const { metrics } = master
-  const ui = createUI()
-  ui.render()
-  createLoggingReporter(master, ui.log)
-  master
-    .on(E.startAll, () => {
-      setInterval(() => {
-        ui.setElapsedTime(Date.now() - metrics.startTime)
-        if (metrics.completedTaskCount > 0) {
-          ui.setRemainingTime(metrics.estimateRemainingTime())
-        }
-        ui.render()
-      }, UPDATE_INTERVAL).unref()
-    })
-    .on(E.finishOne, () => {
-      const { completedTaskCount, totalTaskCount } = metrics
-      ui.setProgress(completedTaskCount / totalTaskCount)
-    })
-    .on(E.done, () => {
-      process.exit()
-    })
-}
+export default {
+  isSupported: () => process.stdout.isTTY,
 
-export default setUpReporter
+  install: master => {
+    const { metrics } = master
+    const ui = createUI()
+    ui.render()
+    createLoggingReporter(master, ui.log)
+    master
+      .on(E.startAll, () => {
+        setInterval(() => {
+          ui.setElapsedTime(Date.now() - metrics.startTime)
+          if (metrics.completedTaskCount > 0) {
+            ui.setRemainingTime(metrics.estimateRemainingTime())
+          }
+          ui.render()
+        }, UPDATE_INTERVAL).unref()
+      })
+      .on(E.finishOne, () => {
+        const { completedTaskCount, totalTaskCount } = metrics
+        ui.setProgress(completedTaskCount / totalTaskCount)
+      })
+      .on(E.done, () => {
+        process.exit()
+      })
+  }
+}

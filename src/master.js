@@ -227,7 +227,9 @@ const getOpts = () => {
       describe: 'Select style for reporting progress',
       type: 'string',
       requiresArg: true,
-      choices: Object.keys(reporters),
+      choices: Object.entries(reporters)
+        .filter(([, reporter]) => reporter.isSupported())
+        .map(([name]) => name),
       default: DEFAULT_REPORTER
     })
     .strict()
@@ -236,13 +238,13 @@ const getOpts = () => {
 }
 
 const runMaster = async () => {
-  const { targets, configFile, concurrency, reporter } = getOpts()
+  const { targets, configFile, concurrency, reporter: reporterName } = getOpts()
   const master = new Master(targets, configFile, concurrency)
   handleFatalErrors(error => {
     master.emit(E.fatal, { error })
   })
-  const setUpReporter = reporters[reporter]
-  setUpReporter(master)
+  const reporter = reporters[reporterName]
+  reporter.install(master)
   await master._run()
 }
 

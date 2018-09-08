@@ -42,21 +42,23 @@ const startUpdating = master => {
   }, UPDATE_INTERVAL).unref()
 }
 
-const setUpReporter = master => {
-  master
-    .on(E.init, () => {
-      logUpdate('initializing ...')
-    })
-    .on(E.startAll, () => {
-      startUpdating(master)
-    })
-    .on(E.done, () => {
-      updateOutput(master)
-    })
-    .on(E.fatal, ({ error }) => {
-      logUpdate.clear()
-      console.error(stringifyError(error))
-    })
-}
+export default {
+  isSupported: () => process.stdout.isTTY,
 
-export default setUpReporter
+  install: master => {
+    master
+      .on(E.init, () => {
+        logUpdate('initializing ...')
+      })
+      .on(E.startAll, () => {
+        startUpdating(master)
+      })
+      .on(E.done, () => {
+        updateOutput(master)
+      })
+      .on(E.fatal, ({ error }) => {
+        logUpdate.clear()
+        console.error(stringifyError(error))
+      })
+  }
+}
