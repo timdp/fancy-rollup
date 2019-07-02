@@ -21,7 +21,7 @@
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf dist",
-    "build": "rollup -i src/cli.js -o dist/fancy-rollup.js -f cjs",
+    "build": "rollup -i src/cli.js -o dist/fancy-rollup.js -f cjs --banner \"#!/usr/bin/env node\"",
     "lint": "yarn run standard '*.js' 'src/**/*.js'",
     "format": "yarn run prettier-standard '*.js' 'src/**/*.js'",
     "precommit": "yarn run lint-staged"
