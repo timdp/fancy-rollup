@@ -15,8 +15,10 @@
   "bin": {
     "fancy-rollup": "dist/fancy-rollup.js"
   },
+  "main": "index.js",
   "files": [
-    "dist/"
+    "dist/",
+    "index.js"
   ],
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
